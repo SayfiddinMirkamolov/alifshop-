@@ -1,4 +1,3 @@
-
 import { ProductType } from "@/types/product.types";
 import Image from "next/image";
 import React from "react";
@@ -37,7 +36,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   return (
     <div className="w-[150px] cursor-pointer py-5">
       <Image
-        src={product.image} // Bu yerda `image` ishlatilmoqda.
+        src={product.images[0]} // `images[0]` ni ishlatamiz
         alt={product.title}
         width={194}
         height={194}
