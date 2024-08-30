@@ -35,13 +35,16 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
   return (
     <div className="w-[150px] cursor-pointer py-5">
-      <Image
-        src={product.images[0]} // `images[0]` ni ishlatamiz
-        alt={product.title}
-        width={194}
-        height={194}
-        className="h-[130px] object-cover"
-      />
+      {product.images && product.images.length > 0 && (
+  <Image
+    src={product.images[0]}
+    alt={product.title}
+    width={194}
+    height={194}
+    className="h-[130px] object-cover"
+  />
+)}
+
       <div className="relative">
         {product.discountPercentage && (
           <div className="text-sm font-semibold inline-block px-3 py-0.5 bg-red-500 text-white rounded-2xl absolute left-2 -top-8">

@@ -1,80 +1,61 @@
 import React from "react";
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
+import { IoSearch } from "react-icons/io5";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
+import Button from "@/components/button";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-sm py-3">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center">
-          {/* Logo */}
-          <div className="flex items-center">
-            <img
-              src="/logo.png" // Bu yerdagi src'ni logotip fayliga mos ravishda almashtiring
-              alt="alif shop"
-              className="h-8 mr-4"
-            />
-            <h1 className="font-bold text-lg">alif shop</h1>
-          </div>
-
-          {/* Category Button */}
-          <button className="ml-6 bg-yellow-400 text-black px-4 py-2 rounded-md">
-            Tovarlar katalogi
-          </button>
-
-          {/* Search Bar */}
-          <div className="ml-6 flex items-center border rounded-md overflow-hidden">
-            <input
-              type="text"
-              placeholder="Tovarlarni izlash"
-              className="px-4 py-2 focus:outline-none"
-            />
-            <button className="bg-yellow-400 px-4 py-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-black"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 16l4-4-4-4m0 0l4 4-4 4m6 8V8h4"
-                />
-              </svg>
-            </button>
-          </div>
+    <header className="container mx-auto px-10 py-4">
+      <div className="flex justify-between gap-2 items-center">
+        <div className="hidden md:block flex-shrink-0">
+          <Link href="/">
+            <Image src={logo} alt="Logo image" />
+          </Link>
         </div>
-
-        {/* Right Side */}
-        <div className="flex items-center">
-          <div className="flex items-center mr-6">
-            <FaShoppingCart className="text-xl mr-2" />
-            <span>Savat</span>
-          </div>
-          <div className="flex items-center mr-6">
-            <FaHeart className="text-xl mr-2" />
-            <span>Saralanganlar</span>
-          </div>
-          <button className="border px-4 py-2 rounded-md mr-6">Kirish</button>
-          <div className="flex items-center">
-            <span className="mr-2">РУС / UZB</span>
-          </div>
+        <Button text="Tovarlar katalogi" icon="bar" />
+        <div className="flex justify-between border-2 items-center border-main-color rounded-md w-full lg:max-w-[300px] xl:max-w-[453px]">
+          <input
+            type="text"
+            className="mx-3 my-2 mb-2.5 outline-none w-full"
+            placeholder="Tovarlarni izlash"
+          />
+          <Link
+            href="/search"
+            className="bg-main-color hover:bg-hover-main-color active:bg-active-main-color cursor-pointer py-2.5 px-[14px]"
+          >
+            <IoSearch size="24px" />
+          </Link>
         </div>
-      </div>
-      
-      <div className="bg-gray-100 py-2">
-        <div className="container mx-auto flex justify-between text-sm text-gray-500">
-          <span>Smartfonlar va gadjetlar</span>
-          <span>Noutbuklar, kompyuterlar</span>
-          <span>TV va proektorlar</span>
-          <span>Audiotexnikalar</span>
-          <span>Transport</span>
-          <span>Uy uchun texnika</span>
-          <span>Oshxona uchun texnika</span>
-          <span>Go'zallik va sog'</span>
-          <span className="text-black">Yana</span>
+        <Link
+          href="/cart"
+          className="hidden md:flex flex-col items-center hover:text-main-color"
+        >
+          <MdOutlineShoppingCart size="24px" className="" />
+          <span className="text-black text-xs mt-2">Savat</span>
+        </Link>
+        <Link
+          href="/favorites"
+          className="hidden lg:flex flex-col items-center hover:text-main-color"
+        >
+          <FaRegHeart size="24px" className="" />
+          <span className="text-black text-xs mt-2">Saralanganlar</span>
+        </Link>
+        <button className="hidden sm:block font-semibold border-2 border-main-color rounded-lg px-5 py-3 cursor-pointer hover:bg-hover-main-color duration-300">
+          Kirish
+        </button>
+        <div className="hidden md:flex gap-2">
+          <Link
+            href="/ru"
+            className="text-[#A5B1BB] active:text-black hover:text-[#6f767c]"
+          >
+            РУС
+          </Link>
+          <span className="text-[#A5B1BB]">/</span>
+          <Link href="/uz">UZB</Link>
         </div>
       </div>
     </header>
