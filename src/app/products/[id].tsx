@@ -1,42 +1,18 @@
+'use client'; // Ensures this is a client-side component
 
-
-import { useRouter } from 'next/router';
-import { useStore } from '@/store/store';
+import { useRouter } from 'next/router'; // Import useRouter hook
 import { ProductType } from '@/types/product.types';
 import Image from 'next/image';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LikeButton from '../like';
-import { useEffect, useState } from 'react';
 
 const ProductCard = ({ product }: { product: ProductType }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const addToCart = useStore((state) => state.addToCart);
-  const addToFavorites = useStore((state) => state.addToFavorites);
+  const router = useRouter(); // Initialize the router inside the component
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const handleAddToFavorites = () => {
-    addToFavorites(product);
-    toast.success('Added to Favorites', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-      transition: Bounce,
-    });
-  };
-
-  const handleAddToCart = () => {
-    addToCart(product);
-    toast.success('Added to Cart', {
+  const addLike = () =>
+    toast.success('Add to Favorites', {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -48,10 +24,21 @@ const ProductCard = ({ product }: { product: ProductType }) => {
       transition: Bounce,
     });
 
-    if (isMounted) {
-      const router = useRouter();
-      router.push(`/components/product-card/${product.id}`);
-    }
+  const addCard = () => {
+    toast.success('Add to Cart', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+      transition: Bounce,
+    });
+
+    // Navigate to the product details page after adding to the cart
+    router.push(`/product/${product.id}`);
   };
 
   return (
@@ -76,7 +63,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
             {Math.round(product.discountPercentage)}%
           </div>
         )}
-        <div onClick={handleAddToFavorites} className='absolute right-2 -top-32'>
+        <div onClick={addLike} className='absolute right-2 -top-32'>
           <ToastContainer />
           <LikeButton />
         </div>
@@ -96,7 +83,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
           $
         </div>
         <button
-          onClick={handleAddToCart}
+          onClick={addCard}
           className='flex items-center gap-1 bg-yellow-400 px-3 py-2 rounded-md'
         >
           <MdOutlineShoppingCart /> Add to Cart
