@@ -1,5 +1,3 @@
-
-
 import { useRouter } from 'next/router';
 import { useStore } from '@/store/store';
 import { ProductType } from '@/types/product.types';
@@ -14,6 +12,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   const [isMounted, setIsMounted] = useState(false);
   const addToCart = useStore((state) => state.addToCart);
   const addToFavorites = useStore((state) => state.addToFavorites);
+  const router = useRouter(); // `useRouter`ni to'g'ridan-to'g'ri chaqiramiz
 
   useEffect(() => {
     setIsMounted(true);
@@ -49,8 +48,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     });
 
     if (isMounted) {
-      const router = useRouter();
-      router.push(`/components/product-card/${product.id}`);
+      router.push('/app/korizina');
     }
   };
 
